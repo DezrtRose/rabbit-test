@@ -24,8 +24,17 @@ This is a demo application created as a test for the PHP Developer over at Rabbi
 ```
 $ git clone https://github.com/DezrtRose/rabbit-test.git {directory name}
 $ cd {directory name}
-$ composer install
+$ composer install (after completion, rename the .env.example file in the root folder to .env)
 $ php artisan serve (then head to http://localhost:8000 to view the project)
 ```
+
+## Configuration
+Add the following items to the .env file
+- SEARCH_RADIUS=(search radius. eg: 50km)
+- CACHE_TTL=(cache time to live. eg: 60)
+- TWITTER_CONSUMER_KEY=(comsumer key of your twitter app)
+- TWITTER_CONSUMER_SECRET=(comsumer secret key of your twitter app)
+- TWITTER_ACCESS_TOKEN=(access token of your twitter app)
+- TWITTER_ACCESS_TOKEN_SECRET=(secret access token of your twitter app)
 
 ## [Demo](https://google.com)
