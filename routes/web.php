@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('map');
 });
+
+Route::get('/map/getTwitterFeeds', 'MapController@getTwitterFeeds');
+Route::get('/map/getSearchHistory', 'MapController@getSearchHistory');
