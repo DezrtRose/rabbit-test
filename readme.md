@@ -19,3 +19,13 @@ This is a demo application created as a test for the PHP Developer over at Rabbi
 - it also uses the twitter api to load the tweets which mention the city entered by user and adds them to the map as markers
 - it stores users search history
 - it also caches the data received from twitter api
+
+## Installation
+```
+$ git clone https://github.com/DezrtRose/rabbit-test.git {directory name}
+$ cd {directory name}
+$ composer install
+$ php artisan serve (then head to http://localhost:8000 to view the project)
+```
+
+## [Demo](https://google.com)
