@@ -29,6 +29,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="history" tabindex="-1" role="dialog" aria-labelledby="historyLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="historyLabel">Search history</h4>
+            </div>
+            <div class="modal-body">
+                <span class="loading-history"></span>
+                <table id="historyTable" class="table table-striped">
+                    <tr>
+                        <td>City</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="{{ asset('js/jquery.city-autocomplete.js') }}"></script>

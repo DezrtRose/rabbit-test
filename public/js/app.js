@@ -15,7 +15,7 @@ window.App = (function () {
 
         // removes history from html once the modal box is closed
         $('#history').on('hide.bs.modal', function () {
-            $('tr.historyRows').remove();
+            $('tr.history-rows').remove();
         });
     }
 
@@ -60,7 +60,7 @@ window.App = (function () {
                     // creating info window
                     google.maps.event.addListener(marker, 'click', (function (marker, i) {
                         return function () {
-                            var infoText = '<b>Tweet:</b> ' + tweet.tweet + '<br><b>When</b>' + tweet.created_at;
+                            var infoText = '<b>Tweet:</b> ' + tweet.tweet + '<br><b>When: </b>' + tweet.created_at;
                             infowindow.setContent(infoText);
                             infowindow.open(map, marker);
                         }
