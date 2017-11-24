@@ -10,20 +10,34 @@ window.App = (function () {
 
         $('input#city').cityAutocomplete({show_country: true}); // initializing city autocomplete
 
-        $('#search').on('click', searchLocationTweet); // event listener for searching location and tweets
+        $('#search').on('click', function() {
+            searchLocationTweet(false);
+        }); // event listener for searching location and tweets
         $('#history').on('show.bs.modal', getSearchHistory); // bootstrap modal event to display search history in modal box
 
         // removes history from html once the modal box is closed
         $('#history').on('hide.bs.modal', function () {
             $('tr.history-rows').remove();
         });
+
+        $(document).on('click', '.search-history', function() {
+            $('#history').modal('hide');
+            searchLocationTweet($(this));
+        });
     }
 
-    function searchLocationTweet() {
+    function searchLocationTweet(obj) {
         $("#title").text("Searching for tweets. Please wait.");
 
-        var city = $('#city').val();
-        var placeId = $('#city').attr('data-placeid');
+        if(obj) {
+            var city = obj.attr('data-city');
+            var placeId = obj.attr('data-placeid');
+            $('#city').val(city);
+        } else {
+            var city = $('#city').val();
+            var placeId = $('#city').attr('data-placeid');
+        }
+
         var placesService = new google.maps.places.PlacesService(map); // creating instance of google place service to search for place id of the given city
 
         placesService.getDetails({
@@ -36,10 +50,11 @@ window.App = (function () {
                 lat: lat,
                 lng: lng
             });
+            map.setZoom(10);
             $.ajax({
                 url: baseUrl + '/map/getTwitterFeeds',
                 method: 'GET',
-                data: {lat: lat, lng: lng, city: city}
+                data: {lat: lat, lng: lng, city: city, placeId: placeId}
             }).done(function (tweets) {
                 if (tweets.length == 0) {
                     $("#title").text("No tweets found on " + city);
@@ -92,9 +107,9 @@ window.App = (function () {
     }
 
     function initMap() {
-        var center = {lat: -25.363, lng: 131.044};
+        var center = {lat: 13.7251088, lng: 100.3529063};
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 8,
+            zoom: 10,
             center: center
         });
     }

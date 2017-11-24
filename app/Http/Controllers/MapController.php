@@ -13,6 +13,7 @@ class MapController extends Controller
         $query = Input::get('city');
         $lat = Input::get('lat');
         $lng = Input::get('lng');
+        $placeId = Input::get('placeId');
 
         if(!$lat OR !$lng OR !$query) {
             return response()->json([], 401);
@@ -30,8 +31,7 @@ class MapController extends Controller
         if(!$historyExists) {
             $history = json_encode([
                 'query' => $query,
-                'lat' => $lat,
-                'lng' => $lng
+                'placeId' => $placeId
             ]);
             History::create([
                 'identity' => $_COOKIE['identity'],
@@ -64,11 +64,11 @@ class MapController extends Controller
         $userIdentity = $_COOKIE['identity'];
         $searchHistory = History::where('identity', $userIdentity)->orderBy('created_at', 'desc')->get();
         $table = '';
-        if(!$searchHistory)
+        if($searchHistory->isEmpty())
             return response()->json("<tr class='history-rows'><td>No history yet.</td></tr>");
         foreach($searchHistory->toArray() as $key => $value) {
             $rowValue = json_decode($value['value'], true);
-            $table .= "<tr class='history-rows'><td>{$rowValue['query']}</td>";
+            $table .= "<tr class='history-rows'><td><a href='#' data-city='{$rowValue['query']}' data-placeid='{$rowValue['placeId']}' class='search-history'>{$rowValue['query']}</a></td>";
         }
         return response()->json($table);
     }

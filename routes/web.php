@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     if(!isset($_COOKIE['identity']))
-        setcookie('identity', md5($_SERVER['REMOTE_ADDR']), time() + 86000, '/', 'localhost'); // user identity in the cookie. expires after 1 day
+        setcookie('identity', md5($_SERVER['REMOTE_ADDR']), time() + 86000); // user identity in the cookie. expires after 1 day
     return view('map');
 });
 
