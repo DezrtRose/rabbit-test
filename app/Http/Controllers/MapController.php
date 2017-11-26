@@ -34,7 +34,10 @@ class MapController extends Controller
         $cacheTTL = env('CACHE_TTL', '30');
 
         // storing search history to database
-        $historyExists = History::where('key', '=', $cacheKey)->first();
+        $historyExists = History::where([
+            ['key', '=', $cacheKey],
+            ['identity', '=', $_COOKIE['identity']]
+        ])->first();
         if(!$historyExists) {
             $history = json_encode([
                 'query' => $query,
