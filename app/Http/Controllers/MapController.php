@@ -50,7 +50,7 @@ class MapController extends Controller
         try {
             // caching twitter feed to database. twitter api is only called if the cache for the searched location does not exists.
             if(!Cache::has($cacheKey)) {
-                $tweets = \Twitter::getSearch(['q' => $query, 'geocode' => "$geocode", 'result_type' => 'recent']);
+                $tweets = \Twitter::getSearch(['q' => $query, 'geocode' => "$geocode", 'result_type' => 'recent', 'count' => 50]);
                 foreach($tweets->statuses as $status) {
                     if($status->geo == null) continue;
                     $feeds[] = [
@@ -60,7 +60,8 @@ class MapController extends Controller
                         'profile_image_url' => $status->user->profile_image_url
                     ];
                 }
-                Cache::put($cacheKey, $feeds, $cacheTTL);
+                if(!empty($feeds))
+                    Cache::put($cacheKey, $feeds, $cacheTTL);
             } else {
                 $feeds = Cache::get($cacheKey);
             }
