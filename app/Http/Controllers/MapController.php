@@ -6,8 +6,16 @@ use App\History;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Class MapController
+ *
+ * @package App\Http\Controllers
+ */
 class MapController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getTwitterFeeds()
     {
         $query = Input::get('city');
@@ -21,7 +29,6 @@ class MapController extends Controller
 
         $searchRadius = env('SEARCH_RADIUS', '1km');
         $feeds = []; // stores all twitter feeds
-
         $geocode = $lat.','.$lng.','.$searchRadius;
         $cacheKey = md5($query.$lat.$lng);
         $cacheTTL = env('CACHE_TTL', '30');
@@ -41,6 +48,7 @@ class MapController extends Controller
         }
 
         try {
+            // this stores the results to cache if not already present, else it loads the data from the cache
             $tweets = Cache::remember($cacheKey, $cacheTTL, function() use ($query, $lat, $lng, $searchRadius, $geocode) {
                 return \Twitter::getSearch(['q' => $query, 'geocode' => "$geocode", 'result_type' => 'recent']);
             });
@@ -59,6 +67,9 @@ class MapController extends Controller
         return response()->json($feeds);
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getSearchHistory()
     {
         $userIdentity = $_COOKIE['identity'];
