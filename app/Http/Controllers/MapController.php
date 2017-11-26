@@ -48,18 +48,21 @@ class MapController extends Controller
         }
 
         try {
-            // this stores the results to cache if not already present, else it loads the data from the cache
-            $tweets = Cache::remember($cacheKey, $cacheTTL, function() use ($query, $lat, $lng, $searchRadius, $geocode) {
-                return \Twitter::getSearch(['q' => $query, 'geocode' => "$geocode", 'result_type' => 'recent']);
-            });
-            foreach($tweets->statuses as $status) {
-                if($status->geo == null) continue;
-                $feeds[] = [
-                    'coordinates' => $status->geo->coordinates,
-                    'created_at' => $status->created_at,
-                    'tweet' => $status->text,
-                    'profile_image_url' => $status->user->profile_image_url
-                ];
+            // caching twitter feed to database. twitter api is only called if the cache for the searched location does not exists.
+            if(!Cache::has($cacheKey)) {
+                $tweets = \Twitter::getSearch(['q' => $query, 'geocode' => "$geocode", 'result_type' => 'recent']);
+                foreach($tweets->statuses as $status) {
+                    if($status->geo == null) continue;
+                    $feeds[] = [
+                        'coordinates' => $status->geo->coordinates,
+                        'created_at' => $status->created_at,
+                        'tweet' => $status->text,
+                        'profile_image_url' => $status->user->profile_image_url
+                    ];
+                }
+                Cache::put($cacheKey, $feeds, $cacheTTL);
+            } else {
+                $feeds = Cache::get($cacheKey);
             }
         } catch (Exception $e) {
             \Log::error(Twitter::logs());
