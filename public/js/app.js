@@ -11,6 +11,10 @@ window.App = (function () {
         $('input#city').cityAutocomplete({show_country: true}); // initializing city autocomplete
 
         $('#search').on('click', function() {
+            if($('#city').val() == '') {
+                $("#title").text("City field cannot be blank.");
+                return;
+            }
             searchLocationTweet(false);
         }); // event listener for searching location and tweets
         $('#history').on('show.bs.modal', getSearchHistory); // bootstrap modal event to display search history in modal box
