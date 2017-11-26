@@ -1,15 +1,6 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
 ## About Project
 
-This is a demo application created as a test for the PHP Developer over at Rabbit Internet. It demonstrates the usage of google maps and twitter api. The framework used for this project is laravel, whose details are mentioned above.
+This is a demo application created as a test for the PHP Developer over at Rabbit Internet. It demonstrates the usage of google maps and twitter api. The framework used for this project is Laravel v5.4.36.
 
 ## Its functionalities
 
@@ -37,4 +28,4 @@ Add the following items to the .env file
 - TWITTER_ACCESS_TOKEN=(access token of your twitter app)
 - TWITTER_ACCESS_TOKEN_SECRET=(secret access token of your twitter app)
 
-## [Demo](https://google.com)
+## [Demo](http://feeds.condatbackup.com/public/)
